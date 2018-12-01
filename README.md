@@ -2,7 +2,7 @@
 
 If you want to see application, you can visit below link;
 
-[batman-tvshows-app](http://40.117.63.141)
+[batman-tvshows-app](http://35.204.160.7/)
 
 Built with docker-compose and hosted in Google Cloud.
 
