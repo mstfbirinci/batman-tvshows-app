@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './assets/css/styles.scss';
+import Link from 'next/link'
 
 class Header extends Component {
 
@@ -7,8 +8,12 @@ class Header extends Component {
 
         return (
             <div className="header">
-                <a className="item" href="/home">Home</a>
-                <a className="item" href="/about">About</a>
+                <Link href={{ pathname: '/' }} >
+                    <a className="item">Home</a>
+                </Link>
+                <Link href={{ pathname: '/'}} >
+                    <a className="item">About</a>
+                </Link>
             </div>
         );
     }

@@ -1,36 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
-import {fetchTvShows} from '../../redux/actions/tvshows'; 
+import { fetchTvShows } from '../../redux/actions/tvshows';
 import Header from '../header';
-
-import './assets/css/styles.scss';
-
 
 class TvShows extends Component {
 
-    componentDidMount(){
-        this.props.dispatch(fetchTvShows());
+    componentDidMount() {
+        if(!this.props.tvShowsState.tvShows.length)
+            this.props.dispatch(fetchTvShows());
     }
 
     mapTvShows(tvShows) {
         return tvShows.map(tvShow => {
             return (
                 <li key={tvShow.show.id}>
-                <Link to={{ pathname:`/detail/${tvShow.show.id}`, navigation: true}} >
-                {tvShow.show.name}
-                </Link>
+                    <Link href={{ pathname: `/detail`, query: { id: `${tvShow.show.id}` } }} >
+                        <a>{tvShow.show.name}</a>
+                    </Link>
                 </li>
             )
         });
     }
 
     render() {
-        const {error, loading, tvShows} = this.props.tvShowsState;
+        const { error, loading, tvShows } = this.props.tvShowsState;
         
-        if (error)
-        {
+        if (error) {
             return (
                 <div>
                     {error}
@@ -38,22 +35,15 @@ class TvShows extends Component {
             )
         }
 
-        if(loading){
+        if (loading) {
+            
             return (
                 <div>
                     'loading...'
                 </div>
             )
         }
-
-        if(!tvShows.length){
-            return (
-                <div>
-                    no tv-show to show
-                </div>
-            )
-        }
-
+        
         return (
 
             <div>

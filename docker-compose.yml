@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  # backend api
+  server:
+    build: ./tvshows-api
+    expose:
+      - 8080
+    environment:
+      - NODE_ENV=production
+    ports:
+      - 8080:8080
+  # react app
+  client:
+    build: ./tvshows-frontend
+    expose:
+      - 80
+    environment:
+      - NODE_ENV=production
+    ports:
+      - 80:80
+    links:
+      - server
