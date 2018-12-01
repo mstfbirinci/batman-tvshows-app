@@ -1,0 +1,20 @@
+{
+  "name": "enuygun-tvshows-api",
+  "version": "1.0.0",
+  "description": "enuygun tvshows api",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "prettier": "prettier --write '*.js' '*.js' 'api/*.js' 'cache/*.js' 'controller/*.js' 'service/*.js'"
+  },
+  "author": "Mustafa Birinci",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "restify": "^7.2.2"
+  },
+  "devDependencies": {
+    "prettier": "1.15.2",
+    "restify-cors-middleware": "^1.1.1"
+  }
+}

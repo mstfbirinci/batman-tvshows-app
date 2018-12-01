@@ -1,38 +1,58 @@
 import React, { Component } from 'react';
-import './assets/css/styles.scss';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
+
+import {fetchTvShows} from '../../redux/actions/tvshows'; 
 import Header from '../header';
+
+import './assets/css/styles.scss';
+
 
 class TvShows extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.tvShows = [{
-            Name: 'Batman'
-        },
-        {
-            Name: 'Batman1'
-        },
-        {
-            Name: 'Batman2'
-        },
-        {
-            Name: 'Batman3'
-        },
-        {
-            Name: 'Batman4'
-        }]
+    componentDidMount(){
+        this.props.dispatch(fetchTvShows());
     }
 
     mapTvShows(tvShows) {
         return tvShows.map(tvShow => {
             return (
-                <li>{tvShow.Name}</li>
+                <li key={tvShow.show.id}>
+                <Link to={{ pathname:`/detail/${tvShow.show.id}`, navigation: true}} >
+                {tvShow.show.name}
+                </Link>
+                </li>
             )
         });
     }
 
     render() {
+        const {error, loading, tvShows} = this.props.tvShowsState;
+        
+        if (error)
+        {
+            return (
+                <div>
+                    {error}
+                </div>
+            )
+        }
+
+        if(loading){
+            return (
+                <div>
+                    'loading...'
+                </div>
+            )
+        }
+
+        if(!tvShows.length){
+            return (
+                <div>
+                    no tv-show to show
+                </div>
+            )
+        }
 
         return (
 
@@ -44,7 +64,7 @@ class TvShows extends Component {
                 <div className="tvShowListWrapper">
 
                     <ul>
-                        {this.mapTvShows(this.tvShows)}
+                        {this.mapTvShows(tvShows)}
                     </ul>
                 </div>
             </div>
@@ -52,5 +72,8 @@ class TvShows extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return { tvShowsState: state.tvShowsState };
+}
 
-export default TvShows;
+export default connect(mapStateToProps)(TvShows);
